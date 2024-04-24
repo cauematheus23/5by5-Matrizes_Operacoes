@@ -1,63 +1,97 @@
-﻿int qline = 3, qcolums = 3;
-int[,] matriz = new int[qline, qcolums];
-int[,] matriz2 = new int[qline, qcolums];
-int[,] matriz_res = new int[qline, qcolums];
+﻿int qtdlinhas = 3, qtdcolunas = 4;
 
-for (int linha = 0; linha < qline; linha++)
-{
-    for (int coluna = 0; coluna < qcolums; coluna++)
-    {
-        matriz[linha,coluna] = new Random().Next(1, 11);
-        matriz2[linha,coluna] = new Random().Next(1, 11);
+float[,] matriz1 = new float[qtdlinhas, qtdcolunas];
+float[,] matriz2 = new float[qtdlinhas, qtdcolunas];
+float[,] matriz3 = new float[qtdlinhas, qtdcolunas];
 
-    }
-}
-Console.WriteLine("Vetor 1");
-for (int linha = 0; linha < qline; linha++)
+void ImprimirMatriz(float[,] matriz, string titulo)
 {
-    for (int coluna = 0; coluna < qcolums; coluna++)
+    Console.WriteLine(titulo);
+    for (int linha = 0; linha < qtdlinhas; linha++)
     {
-        Console.Write(matriz[linha, coluna] + " ");
+        Console.WriteLine();
+        for (int coluna = 0; coluna < qtdcolunas; coluna++)
+        {
+            Console.Write(matriz[linha, coluna] + " ");
+        }
     }
-    Console.WriteLine();
-}
-    Console.WriteLine("Vetor 2");
-for (int linha = 0; linha < qline; linha++)
-{
-    for (int coluna = 0; coluna < qcolums; coluna++)
-    {
-        Console.Write(matriz2[linha, coluna] + " ");
-    }
-    Console.WriteLine();
 }
 
-Console.WriteLine("SOMA");
-for (int linha = 0; linha < qline; linha++)
+
+//criacao da matriz 1
+
+for (int linha = 0; linha < qtdlinhas; linha++)
 {
-    for (int coluna = 0; coluna < qcolums; coluna++)
+    for (int coluna = 0; coluna < qtdcolunas; coluna++)
     {
-        matriz_res[linha,coluna] = matriz[linha,coluna] + matriz2[linha,coluna];
-        Console.Write(matriz_res[linha,coluna] + " ");
+        matriz1[linha, coluna] = new Random().Next(0, 10);
     }
-    Console.WriteLine();
 }
-Console.WriteLine("Subtração");
-for (int linha = 0; linha < qline; linha++)
+
+ImprimirMatriz(matriz1, "Matriz 1");
+
+//criacao da matriz 2
+
+for (int linha = 0; linha < qtdlinhas; linha++)
 {
-    for (int coluna = 0; coluna < qcolums; coluna++)
+    for (int coluna = 0; coluna < qtdcolunas; coluna++)
     {
-        matriz_res[linha, coluna] = matriz[linha, coluna] - matriz2[linha, coluna];
-        Console.Write(matriz_res[linha, coluna] + " ");
+        matriz2[linha, coluna] = new Random().Next(0, 10);
     }
-    Console.WriteLine();
 }
-Console.WriteLine("Divisão");
-for (int linha = 0; linha < qline; linha++)
+
+Console.ReadLine();
+
+ImprimirMatriz(matriz2, "Matriz 2");
+
+for (int linha = 0; linha < qtdlinhas; linha++)
 {
-    for (int coluna = 0; coluna < qcolums; coluna++)
+    for (int coluna = 0; coluna < qtdcolunas; coluna++)
     {
-        matriz_res[linha, coluna] = matriz[linha, coluna] / matriz2[linha, coluna];
-        Console.Write(matriz_res[linha, coluna] + " ");
+        matriz3[linha, coluna] = matriz1[linha, coluna] + matriz2[linha, coluna];
     }
-    Console.WriteLine();
 }
+
+Console.ReadLine();
+ImprimirMatriz(matriz3, "Matriz Somada");
+
+
+for (int linha = 0; linha < qtdlinhas; linha++)
+{
+    for (int coluna = 0; coluna < qtdcolunas; coluna++)
+    {
+        matriz3[linha, coluna] = matriz1[linha, coluna] - matriz2[linha, coluna];
+    }
+}
+
+Console.ReadLine();
+
+ImprimirMatriz(matriz3, "Matriz Subtraida");
+
+Console.ReadLine();
+
+for (int linha = 0; linha < qtdlinhas; linha++)
+{
+    for (int coluna = 0; coluna < qtdcolunas; coluna++)
+    {
+        matriz3[linha, coluna] = matriz1[linha, coluna] * matriz2[linha, coluna];
+    }
+}
+
+ImprimirMatriz(matriz3, "Matriz Multiplicada");
+
+Console.ReadLine();
+
+
+for (int linha = 0; linha < qtdlinhas; linha++)
+{
+    for (int coluna = 0; coluna < qtdcolunas; coluna++)
+    {
+        if (matriz2[linha, coluna] != 0)
+            matriz3[linha, coluna] = matriz1[linha, coluna] / matriz2[linha, coluna];
+        else
+            matriz3[linha, coluna] = float.NaN;
+    }
+}
+
+ImprimirMatriz(matriz3, "Matriz Dividida");
