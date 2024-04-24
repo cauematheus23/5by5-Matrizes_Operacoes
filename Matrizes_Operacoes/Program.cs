@@ -7,7 +7,7 @@ void Parametros(int x, int y)
         qtdlinhas = int.Parse(Console.ReadLine());
         Console.WriteLine("Digite o tamanho de colunas");
         qtdcolunas = int.Parse(Console.ReadLine());
-    } while (qtdlinhas != qtdcolunas);
+    } while (qtdlinhas != qtdcolunas || qtdcolunas == 0 || qtdlinhas == 0);
 }
 Parametros(qtdlinhas, qtdcolunas);
 float[,] matriz1 = new float[qtdlinhas, qtdcolunas];
