@@ -1,4 +1,5 @@
-﻿int qtdlinhas= 0, qtdcolunas = 0;
+﻿
+int qtdlinhas= 0, qtdcolunas = 0;
 void Parametros(int x, int y)
 {
     do
@@ -7,23 +8,24 @@ void Parametros(int x, int y)
         qtdlinhas = int.Parse(Console.ReadLine());
         Console.WriteLine("Digite o tamanho de colunas");
         qtdcolunas = int.Parse(Console.ReadLine());
-    } while (qtdlinhas != qtdcolunas || qtdcolunas == 0 || qtdlinhas == 0);
+    } while (qtdcolunas == 0 || qtdlinhas == 0);
 }
 Parametros(qtdlinhas, qtdcolunas);
 float[,] matriz1 = new float[qtdlinhas, qtdcolunas];
 float[,] matriz2 = new float[qtdlinhas, qtdcolunas];
 float[,] matriz3 = new float[qtdlinhas, qtdcolunas];
 int opcao = 0;
-void sorteio(float[,] matriz)
+float[,] sortear()
 {
+    float[,] matrizresultante = new float[qtdlinhas, qtdcolunas];
     for (int linha = 0; linha < qtdlinhas; linha++)
     {
         for (int coluna = 0; coluna < qtdcolunas; coluna++)
         {
-            matriz[linha, coluna] = new Random().Next(0, 10);
+            matrizresultante[linha, coluna] = new Random().Next(0, 10);
         }
     }
-
+    return matrizresultante;
 }
 void ImprimirMatriz(float[,] matriz, string titulo)
 {
@@ -38,81 +40,93 @@ void ImprimirMatriz(float[,] matriz, string titulo)
     }
     Console.WriteLine();
 }
-void Menu_Usuario()
-
-
+void Somar_Matriz(float[,]matriz, float[,] matriz2)
 {
-    sorteio(matriz1);
-    ImprimirMatriz(matriz1, "Matriz 1");
-    sorteio(matriz2);
-    ImprimirMatriz(matriz2, "Matriz 2");
-    while (opcao != 5)
-    { 
-        do
+    for (int linha = 0; linha < qtdlinhas; linha++)
+    {
+        for (int coluna = 0; coluna < qtdcolunas; coluna++)
         {
-        Console.WriteLine("Escolha uma operação:\n[1]SOMA\n[2]SUBTRAÇÃO\n[3]MULTIPLICAÇÃO\n[4]DIVISÃO\n[5]SAIR");
-        opcao = int.Parse(Console.ReadLine());
-            if (opcao == 0)
-            {
-            Console.WriteLine("Valor invalido, por favor digite uma opção válida ");
-            }
-        }while (opcao == 0 );
-
-     
-        switch (opcao)
-        {
-            case 1:
-                for (int linha = 0; linha < qtdlinhas; linha++)
-                {
-                    for (int coluna = 0; coluna < qtdcolunas; coluna++)
-                    {
-                        matriz3[linha, coluna] = matriz1[linha, coluna] + matriz2[linha, coluna];
-                    }
-                }
-                ImprimirMatriz(matriz3, "Matriz Somada");
-                break;
-            case 2:
-                for (int linha = 0; linha < qtdlinhas; linha++)
-                {
-                    for (int coluna = 0; coluna < qtdcolunas; coluna++)
-                    {
-                        matriz3[linha, coluna] = matriz1[linha, coluna] - matriz2[linha, coluna];
-                    }
-                }
-                ImprimirMatriz(matriz3, "Matriz Subtraida");
-                break;
-            case 3:
-                for (int linha = 0; linha < qtdlinhas; linha++)
-                {
-                    for (int coluna = 0; coluna < qtdcolunas; coluna++)
-                    {
-                        matriz3[linha, coluna] = matriz1[linha, coluna] * matriz2[linha, coluna];
-                    }
-                }
-                ImprimirMatriz(matriz3, "Matriz Multiplicada");
-                break;
-            case 4:
-                for (int linha = 0; linha < qtdlinhas; linha++)
-                {
-                    for (int coluna = 0; coluna < qtdcolunas; coluna++)
-                    {
-                        if (matriz2[linha, coluna] != 0)
-                            matriz3[linha, coluna] = matriz1[linha, coluna] / matriz2[linha, coluna];
-                        else
-                            matriz3[linha, coluna] = float.NaN;
-                    }
-                }
-                ImprimirMatriz(matriz3, "Matriz Dividida");
-                break;
-            case 5:
-                break;
-            default: break;
+            matriz3[linha, coluna] = matriz[linha, coluna] + matriz2[linha, coluna];
         }
-
     }
+    ImprimirMatriz(matriz3, "Matriz Somada");
+}
+void Subtrair_Matriz(float[,]matriz, float[,] matriz2)
+{
+    for (int linha = 0; linha < qtdlinhas; linha++)
+    {
+        for (int coluna = 0; coluna < qtdcolunas; coluna++)
+        {
+            matriz3[linha, coluna] = matriz[linha, coluna] - matriz2[linha, coluna];
+        }
+    }
+    ImprimirMatriz(matriz3, "Matriz Subtraida");
+}void Multiplicar_Matriz(float[,]matriz, float[,] matriz2)
+{
+    for (int linha = 0; linha < qtdlinhas; linha++)
+    {
+        for (int coluna = 0; coluna < qtdcolunas; coluna++)
+        {
+            matriz3[linha, coluna] = matriz[linha, coluna] * matriz2[linha, coluna];
+        }
+    }
+    ImprimirMatriz(matriz3, "Matriz Multiplicada");
 }
 
-Menu_Usuario();
+void Dividir_Matriz(float[,]matriz, float[,] matriz2)
+{
+    for (int linha = 0; linha < qtdlinhas; linha++)
+    {
+        for (int coluna = 0; coluna < qtdcolunas; coluna++)
+        {
+            if (matriz2[linha, coluna] != 0)
+                matriz3[linha, coluna] = matriz[linha, coluna] / matriz2[linha, coluna];
+            else
+                matriz3[linha, coluna] = float.NaN;
+        }
+    } 
+    ImprimirMatriz(matriz3, "Matriz Dividida");
+}
+int Menu_Usuario() 
+{
+    int escolha;
+    Console.WriteLine("Escolha uma operação:\n[1]SOMA\n[2]SUBTRAÇÃO\n[3]MULTIPLICAÇÃO\n[4]DIVISÃO\n[5]SAIR");
+    escolha = int.Parse(Console.ReadLine());
+
+
+    return escolha;
+}
+ImprimirMatriz(matriz1, "matriz 1");
+matriz1 = sortear();
+ImprimirMatriz(matriz2, "matriz 2");
+matriz2 = sortear();
+do
+{   
+    opcao = Menu_Usuario();
+    switch (opcao)
+    {
+        case 1:
+            Somar_Matriz(matriz1, matriz2);
+            break;
+        case 2:
+           
+            Subtrair_Matriz(matriz1, matriz2);
+            break;
+        case 3:
+           
+            Multiplicar_Matriz(matriz1, matriz2);
+            break;
+        case 4:
+            Dividir_Matriz (matriz1, matriz2);
+            break;
+        case 5:
+            break;
+        default: break;
+    }
+  
+} while (opcao != 5);
+
+
 
 
 
